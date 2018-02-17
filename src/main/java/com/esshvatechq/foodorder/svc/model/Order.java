@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "order")
+@Table(name = "food_order")
 @EntityListeners(AuditingEntityListener.class)
 public class Order extends BaseEntity implements Serializable {
 
