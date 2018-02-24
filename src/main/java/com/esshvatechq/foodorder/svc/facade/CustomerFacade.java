@@ -21,4 +21,8 @@ public class CustomerFacade {
 		customerRepository.save(customer);
 		return customer;
 	}
+	
+	public Customer getByEmail(String email) {
+		return customerRepository.findByemail(email);
+	}
 }

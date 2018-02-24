@@ -2,8 +2,11 @@ package com.esshvatechq.foodorder.svc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import com.esshvatechq.foodorder.svc.config.JwtFilter;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -31,6 +34,15 @@ public class FoodorderSvcApplication {
                 .paths(PathSelectors.any())
                 .build();
     }
+	
+	@Bean
+	public FilterRegistrationBean jwtFilter() {
+		final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(new JwtFilter());
+		registrationBean.addUrlPatterns("/api/secure/*");
+
+		return registrationBean;
+	}
 	
 	private ApiInfo apiInfo() {
         return new ApiInfoBuilder()

@@ -17,7 +17,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Customer extends BaseEntity implements Serializable {
 
 	private String name;
-	private String address;
+	private String addressLine1;
+	private String city;
 	private String contactNo1;
 	private String contactNo2;
 	private String email;
@@ -28,11 +29,11 @@ public class Customer extends BaseEntity implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAddress() {
-		return address;
+	public String getAddressLine1() {
+		return addressLine1;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
 	}
 	public String getContactNo1() {
 		return contactNo1;
@@ -51,6 +52,12 @@ public class Customer extends BaseEntity implements Serializable {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 	
 }

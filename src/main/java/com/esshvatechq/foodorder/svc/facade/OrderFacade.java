@@ -45,9 +45,20 @@ public class OrderFacade {
 		
 		List<OrderDetailDTO> orderDetailDTOList = orderDto.getOrderDetailDTO();
 		for (OrderDetailDTO orderDetailDTO : orderDetailDTOList) {
-			orderDetailRepository.save(orderDetailDTO.getOrderDetail());
-			if(orderDetailDTO.getOrderDetailIngredients() != null) {
-				orderIngredientRepository.save(orderDetailDTO.getOrderDetailIngredients());
+			OrderDetail orderDetail = orderDetailDTO.getOrderDetail();
+			orderDetail.setOrderId(order.getId());
+			orderDetailRepository.save(orderDetail);
+			if(orderDetailDTO.getIngredients() != null) {
+				List<String> ingredients = orderDetailDTO.getIngredients();
+				if(!ingredients.isEmpty()) {
+					for (String orderIngredientId : ingredients) {
+						OrderIngredient orderIngredient = new OrderIngredient();
+						orderIngredient.setOrderDetailId(orderDetail.getId());
+						orderIngredient.setIngredientId(orderIngredientId);
+						orderIngredientRepository.save(orderIngredient);
+					}
+					
+				}
 			}
 		}
 		
@@ -75,7 +86,7 @@ public class OrderFacade {
 			orderDetailDTO.setOrderDetail(orderDetail);
 			if(orderDetail.getIsCustom()) {
 				List<OrderIngredient> orderIngredients = orderIngredientRepository.findByorderDetailId(orderDetail.getId());
-				orderDetailDTO.setOrderDetailIngredients(orderIngredients);
+				//orderDetailDTO.setOrderDetailIngredients(orderIngredients);
 			}
 			orderDetailDTOList.add(orderDetailDTO);
 		}
@@ -85,5 +96,17 @@ public class OrderFacade {
 		orderDto.setOrderDetailDTO(orderDetailDTOList);
 		
 		return orderDto;
+	}
+	
+	public List<OrderDTO> getNewOrders(){
+		List<OrderDTO> orderDTOList = new ArrayList<>();
+		List<Order> orders = orderRepository.findBystatus(0);
+		for (Order order : orders) {
+			OrderDTO orderDto = new OrderDTO();
+			orderDto.setOrder(order);
+			orderDTOList.add(orderDto);
+		}
+		
+		return orderDTOList;
 	}
 }

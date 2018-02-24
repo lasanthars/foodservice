@@ -7,7 +7,7 @@ import com.esshvatechq.foodorder.svc.model.OrderIngredient;
 
 public class OrderDetailDTO {
 	private OrderDetail orderDetail;
-	private List<OrderIngredient> orderDetailIngredients;
+	private List<String> ingredients;
 	
 	public OrderDetail getOrderDetail() {
 		return orderDetail;
@@ -15,12 +15,10 @@ public class OrderDetailDTO {
 	public void setOrderDetail(OrderDetail orderDetail) {
 		this.orderDetail = orderDetail;
 	}
-	public List<OrderIngredient> getOrderDetailIngredients() {
-		return orderDetailIngredients;
+	public List<String> getIngredients() {
+		return ingredients;
 	}
-	public void setOrderDetailIngredients(List<OrderIngredient> orderDetailIngredients) {
-		this.orderDetailIngredients = orderDetailIngredients;
+	public void setIngredients(List<String> ingredients) {
+		this.ingredients = ingredients;
 	}
-	
-	
 }

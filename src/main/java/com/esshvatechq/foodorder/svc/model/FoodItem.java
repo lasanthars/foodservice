@@ -15,7 +15,7 @@ public class FoodItem extends BaseEntity implements Serializable {
 
 	private	String name;
 	private String description;
-	private String type; // 1-main, 2-starters, 3-beverages, 4-deserts
+	private String type; // 1-signature kottu, 2-starters, 3-beverages, 4-deserts
 	private Double price;
 	private String imageUrl;
 	

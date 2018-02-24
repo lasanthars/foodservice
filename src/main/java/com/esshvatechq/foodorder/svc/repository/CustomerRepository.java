@@ -7,5 +7,5 @@ import com.esshvatechq.foodorder.svc.model.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
-
+	Customer findByemail(String email);
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esshvatechq.foodorder.svc.facade.CustomerFacade;
@@ -33,5 +35,14 @@ public class CustomerController {
 	@PostMapping("/customers")
 	public Customer createCustomer(@Valid @RequestBody Customer customer) {
 		return customerFacade.saveCustomer(customer);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,value="/customer/")
+	public ResponseEntity<Customer> getByEmail(@RequestParam(value = "email") String email) {
+		Customer customer = customerFacade.getByEmail(email);
+		if(customer == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(customer); 
 	}
 }
