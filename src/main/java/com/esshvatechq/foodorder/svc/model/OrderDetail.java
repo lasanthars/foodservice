@@ -20,6 +20,8 @@ public class OrderDetail extends BaseEntity implements Serializable {
 	private Double qty;
 	private Double price;
 	private Double total;
+	private String portionId;
+	private String carbId;
 	
 	public String getOrderId() {
 		return orderId;
@@ -62,6 +64,18 @@ public class OrderDetail extends BaseEntity implements Serializable {
 	}
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+	public String getPortionId() {
+		return portionId;
+	}
+	public void setPortionId(String portionId) {
+		this.portionId = portionId;
+	}
+	public String getCarbId() {
+		return carbId;
+	}
+	public void setCarbId(String carbId) {
+		this.carbId = carbId;
 	}
 	
 	

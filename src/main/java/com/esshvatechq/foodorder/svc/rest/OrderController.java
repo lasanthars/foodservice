@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.esshvatech.foodorder.svc.util.ValidationResponse;
 import com.esshvatechq.foodorder.svc.dto.OrderDTO;
 import com.esshvatechq.foodorder.svc.facade.OrderFacade;
 
@@ -25,8 +26,13 @@ public class OrderController {
 	@PostMapping("/order")
 	public ResponseEntity saveOrder(@RequestBody OrderDTO orderDto) {
 		try {
-			orderFacade.saveOrder(orderDto);
-			return new ResponseEntity<>(HttpStatus.OK);
+			ValidationResponse orderValidationResponse = orderFacade.validateOrder(orderDto);
+			if(orderValidationResponse.getStatus() == HttpStatus.ACCEPTED) {
+				orderFacade.saveOrder(orderDto);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(orderValidationResponse.getStatus());
+			
 		} catch (Exception e) {
 			// TODO log error
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
